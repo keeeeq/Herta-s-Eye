@@ -1,15 +1,19 @@
-' 黑塔之眼 - 静默启动器 (使用 Conda agent 环境)
-' 会自动请求 UAC 提权
+' 黑塔之眼 - 静默启动器 (v3.0 Final)
+' 使用 ShellExecute "runas" (管理员) + 0 (隐藏窗口) 启动
 
 Set objShell = CreateObject("Shell.Application")
 Set objFSO = CreateObject("Scripting.FileSystemObject")
 
-' 获取脚本所在目录
 strPath = objFSO.GetParentFolderName(WScript.ScriptFullName)
 
-' 通过 cmd 激活 conda 环境后运行 (以管理员身份)
-strCmd = "/c cd /d """ & strPath & """ && conda activate agent && pythonw tray_manager.py"
-objShell.ShellExecute "cmd.exe", strCmd, strPath, "runas", 0
+' 构造命令: 切换目录 -> 激活 conda -> 启动管理脚本
+' 注意: 使用 python.exe 即可，因为父 CMD 窗口本身是隐藏的
+strCmd = "/c cd /d """ & strPath & """ && call conda activate agent && python tray_manager.py"
+
+' 执行命令
+' "runas": 请求管理员权限 (UAC)
+' 0: 隐藏窗口 (SW_HIDE)
+objShell.ShellExecute "cmd.exe", strCmd, "", "runas", 0
 
 Set objShell = Nothing
 Set objFSO = Nothing
