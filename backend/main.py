@@ -1,10 +1,11 @@
 """
-黑塔之眼 - 后端核心 (v5.1 No Mock)
+黑塔之眼 - 后端核心 (v5.2)
 ==========================================
 游戏玩家优化版:
 - 新增 GPU VRAM / 功耗 / 频率 监控
 - 使用 Optional[float] 表示不可用数据 (前端可条件隐藏)
 - 移除 Mock 模式: DLL 加载失败则直接报错退出
+- 完善的错误处理和日志
 """
 
 from fastapi import FastAPI
@@ -14,9 +15,23 @@ import uvicorn
 from pydantic import BaseModel
 import os
 import sys
-import clr
+import logging
 
-app = FastAPI(title="Herta's Eye v5.1")
+# --- 日志配置 ---
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] %(levelname)s: %(message)s"
+)
+logger = logging.getLogger("HertaBackend")
+
+# --- Pythonnet 导入 ---
+try:
+    import clr
+except ImportError:
+    logger.error("pythonnet 未安装，请运行: pip install pythonnet")
+    sys.exit(1)
+
+app = FastAPI(title="Herta's Eye v5.2", description="游戏硬件监控 API")
 
 app.add_middleware(
     CORSMiddleware,

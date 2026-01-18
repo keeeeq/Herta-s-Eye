@@ -5,6 +5,7 @@ __pycache__/
 
 # Logs
 *.log
+herta_eye.log
 
 # DLL files (users need to download themselves)
 *.dll
