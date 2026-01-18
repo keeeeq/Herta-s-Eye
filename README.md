@@ -53,6 +53,7 @@ pip install -r requirements.txt
 - 完全无窗口
 - UAC 提权后后台运行
 - 右下角出现托盘图标
+> **注意**: 默认使用系统 Path 中的 `python`。如果使用 Conda 或虚拟环境，请右键编辑 `silent_launch.vbs` 修改启动命令。
 
 ### 手机访问
 1. 确保手机与电脑在同一 WiFi

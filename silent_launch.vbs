@@ -6,9 +6,10 @@ Set objFSO = CreateObject("Scripting.FileSystemObject")
 
 strPath = objFSO.GetParentFolderName(WScript.ScriptFullName)
 
-' 构造命令: 切换目录 -> 激活 conda -> 启动管理脚本
-' 注意: 使用 python.exe 即可，因为父 CMD 窗口本身是隐藏的
-strCmd = "/c cd /d """ & strPath & """ && call conda activate agent && python tray_manager.py"
+' 构造命令: 切换目录 -> 启动管理脚本
+' 默认使用系统 PATH 中的 python
+' 如果使用虚拟环境，请修改此处 (例如: "call conda activate myenv && python ...")
+strCmd = "/c cd /d """ & strPath & """ && python tray_manager.py"
 
 ' 执行命令
 ' "runas": 请求管理员权限 (UAC)
