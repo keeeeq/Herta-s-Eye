@@ -1,0 +1,32 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+
+# DLL files (users need to download themselves)
+*.dll
+
+# Environment
+.env
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Test/Debug scripts
+diagnose_*.py
+check_*.py
+dump_*.py
+debug_*.py
+sensors_dump.txt
+
+# Streamlit
+.streamlit/
+
+# OS
+Thumbs.db
+.DS_Store
